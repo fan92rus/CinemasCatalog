@@ -14,11 +14,6 @@ using Microsoft.Extensions.Logging;
 
 namespace FilmsCatalog.Controllers
 {
-    public class Pagination
-    {
-        public int Page { get; set; } = 1;
-        public int Size { get; set; } = 20;
-    }
     public class UserController : Controller
     {
         private UserManager<User> UserManager { get; }
