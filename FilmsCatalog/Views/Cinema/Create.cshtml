@@ -1,0 +1,47 @@
+﻿@model CinemaAddModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<h5 class="display-5">Добавить фильм</h5>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseTime" class="control-label"></label>
+                <input asp-for="ReleaseTime" class="form-control" />
+                <span asp-validation-for="ReleaseTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producer" class="control-label"></label>
+                <input asp-for="Producer" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PosterFile" class="control-label"></label>
+                <input asp-for="PosterFile" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Get">Назад</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

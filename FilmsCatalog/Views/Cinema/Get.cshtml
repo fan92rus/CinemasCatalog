@@ -1,0 +1,58 @@
+﻿@using FilmsCatalog.Services
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+
+@model FilmsCatalog.Services.PagedResult<CinemaViewModel>
+
+@{
+    ViewData["Title"] = "Get";
+    var thisUserId = UserManager.GetUserId(User);
+}
+
+@addTagHelper *, LazZiya.TagHelpers
+
+<div>
+    <h5 class="display-5">Просмотр всех фильмов</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Название</th>
+                <th d>Режисер</th>
+                <th>Описание</th>
+                <th>Дата премьеры</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model?.Results != null)
+                @foreach (var cinema in Model?.Results)
+                {
+                    <tr>
+                        <td><label class="control-label">@cinema.Id</label></td>
+                        <td><label class="control-label">@cinema.Title</label></td>
+                        <td><label class="control-label">@cinema.Producer</label></td>
+                        <td><label class="control-label">@cinema.Description.SubstringIfLonger(300) ...</label></td>
+                        <td><label class="control-label">@cinema.ReleaseTime.ToShortDateString()</label></td>
+                        <td> <a href="@Url.Action("GetOne", "Cinema", new {id=cinema.Id})">Подробнее</a> </td>
+
+                        @if (User.Identity.IsAuthenticated && cinema.userId == thisUserId)
+                        {
+                            <td> <a href="@Url.Action("Edit", "Cinema", new {id=cinema.Id})">Редактировать</a> </td>
+                        }
+
+                    </tr>
+                }
+        </tbody>
+    </table>
+
+    <paging query-string-key-page-no="Page"
+            query-string-key-page-size="Size"
+            total-records="Model.RowCount"
+            page-no="Model.CurrentPage"
+            page-size="Model.PageSize">
+    </paging>
+
+</div>
+<div>
+</div>
